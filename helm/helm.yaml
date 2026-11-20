@@ -1,0 +1,42 @@
+settings:
+  kubeContext: "minikube"
+  globalMaxHistory: 5
+
+helmRepos:
+  bitnami: "https://charts.bitnami.com/bitnami"
+  nginx: "https://helm.nginx.com/stable"
+
+
+namespaces:
+  pimcore:
+    protected: false
+
+apps:
+  mysql:
+    namespace: "pimcore"
+    enabled: true
+    chart: "bitnami/mariadb"
+    version: 9.3.18
+    valuesFile: "./mysql/values.yaml"
+    priority: -1
+
+  redis:
+    namespace: "pimcore"
+    enabled: true
+    chart: "bitnami/redis"
+    version: 14.8.3
+    valuesFile: "./redis/values.yaml"
+    priority: -1
+
+  nginx-ingress:
+    namespace: "pimcore"
+    enabled: true
+    chart: "nginx/nginx-ingress"
+    version: 0.6.1
+
+  pimcore:
+    namespace: "pimcore"
+    enabled: true
+    chart: "./pimcore"
+    version: 0.1.0
+    valuesFile: "./pimcore/values.yaml"
